@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infisical-app
+  labels:
+    app: infisical-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: infisical-app
+  template:
+    metadata:
+      labels:
+        app: infisical-app
+    spec:
+      containers:
+      - name: fastapi-app
+        image: hemanth097/fastapi-infisical-app:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: NAME
+          valueFrom:
+            secretKeyRef:
+              name: infisical-secrets
+              key: NAME
