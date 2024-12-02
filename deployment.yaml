@@ -1,23 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fastapi-infisical-app
-  namespace: testinginf
+  name: infisical-app
+  namespace: inftest
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: fastapi-infisical-app
+      app: infisical-app
   template:
     metadata:
       labels:
-        app: fastapi-infisical-app
+        app: infisical-app
     spec:
       containers:
-      - name: fastapi-infisical-app
+      - name: fastapi-app
         image: hemanth097/fastapi-infisical-app:latest
         ports:
         - containerPort: 8000
         envFrom:
         - secretRef:
             name: infisical-secrets
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: infisical-service
+  namespace: inftest
+spec:
+  type: NodePort
+  selector:
+    app: infisical-app
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 32325
