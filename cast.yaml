@@ -1,5 +1,5 @@
 resources:
-  cloud: gcp
+  cloud: azure
   cpus: 1+
   disk_size: 100
   ports: 8080
