@@ -2,16 +2,3 @@ resources:
   cloud: azure
   cpus: 1+
   disk_size: 100
-  ports: 8080
-
-
-service:
-  readiness_probe: /healthz
-  replica_policy:
-    min_replicas: 1
-    max_replicas: 1
-
-
-run: |
-  wget https://raw.githubusercontent.com/Hemanth097/hello-yaml/main/server.py
-  python server.py
